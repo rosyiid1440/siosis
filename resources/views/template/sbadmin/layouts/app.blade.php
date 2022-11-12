@@ -10,15 +10,13 @@
     <meta name="author" content="">
 
 
-    <link rel="icon" href="{{ url('img/favicon.png') }}">
+    {{-- <link rel="icon" href="{{ url('img/favicon.png') }}"> --}}
     <title>@yield('title') - SIOSIS</title>
 
+    <!-- css -->
+    @vite(['resources/sass/app.scss', 'public/sbadmin/css/fontawesome-free/css/all.min.css', 'public/sbadmin/css/sbadmin.min.css', 'public/sbadmin/datatables/dataTables.bootstrap4.min.css', 'resources/js/app.js', 'public/sbadmin/js/jquery.min.js', 'public/sbadmin/js/bootstrap-bundle.min.js', 'public/sbadmin/js/jquery-easing.min.js', 'public/sbadmin/js/sbadmin.min.js', 'public/sbadmin/datatables/jquery.dataTables.min.js', 'public/sbadmin/datatables/dataTables.bootstrap4.min.js', 'public/sweetalert2.js'])
+
     @yield('css')
-
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-
-    @include('template.sbadmin.layouts.css')
 </head>
 
 <body id="page-top" style="overflow-x:hidden;">
@@ -26,7 +24,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/home') }}">
@@ -41,7 +39,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item {{ (request()->is('home')) ? 'active' : '' }}">
+            <li class="nav-item {{ request()->is('home') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('/home') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Home</span></a>
@@ -51,14 +49,6 @@
             <hr class="sidebar-divider">
 
             @include('template.sbadmin.layouts.menu')
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
 
         </ul>
         <!-- End of Sidebar -->
@@ -85,27 +75,50 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                    @if (Auth::user()->name != '')
+                                        {{ Auth::user()->name }}
+                                    @else
+                                        {{ Auth::user()->token }}
+                                    @endif
+                                </span>
                                 <img class="img-profile rounded-circle"
                                     src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
+                                @if (Auth::user()->name != '')
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Profile
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Logout
+                                    </a>
+                                @else
+                                    <a class="dropdown-item" href="{{ url('logout') }}"
+                                        onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Logout
+                                    </a>
+                                @endif
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
+                                @if (Auth::user()->name != '')
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                @else
+                                    <form id="logout-form" action="{{ url('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                @endif
+
                             </div>
                         </li>
 
@@ -167,8 +180,7 @@
         </div>
     </div>
 
-    @include('template.sbadmin.layouts.js')
-
+    @include('sweetalert::alert')
     @yield('js')
 </body>
 

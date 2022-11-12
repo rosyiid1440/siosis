@@ -1,6 +1,6 @@
 @extends('template.sbadmin.layouts.app')
 
-@section('title', 'Periode')
+@section('title', 'Angkatan')
 
 @section('css')
     <style>
@@ -11,11 +11,11 @@
 @section('content')
     <div class="row">
         <div class="col-md-6">
-            <h1 class="h3 mb-4 text-gray-800">Periode</h1>
+            <h1 class="h3 mb-4 text-gray-800">Angkatan</h1>
         </div>
         <div class="col-md-6">
             <ol class="breadcrumb float-sm-right" style="background-color: none;">
-                <li class="breadcrumb-item active"><small>Periode</small></li>
+                <li class="breadcrumb-item active"><small>Angkatan</small></li>
             </ol>
         </div>
     </div>
@@ -24,7 +24,7 @@
         <div class="col-md">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ url('periode/add') }}" class="btn btn-primary">
+                    <a href="{{ url('angkatan/add') }}" class="btn btn-primary">
                         <h6 class="m-0 font-weight-bold text-white">Add Data</h6>
                     </a>
                 </div>
@@ -34,8 +34,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Periode</th>
-                                    <th>Status</th>
+                                    <th>Angkatan</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -43,18 +42,11 @@
                                 @foreach ($data as $key => $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nama_periode }}</td>
+                                        <td>{{ $item->nama_angkatan }}</td>
                                         <td>
-                                            @if ($item->status == 'active')
-                                                <div class="badge badge-success">{{ $item->status }}</div>
-                                            @else
-                                                <div class="badge badge-danger">{{ $item->status }}</div>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{ url('periode/' . $item->id) }}"
+                                            <a href="{{ url('angkatan/' . $item->id) }}"
                                                 class="btn btn-warning btn-sm">Edit</a>
-                                            <form action="{{ url('periode/' . $item->id) }}" class="form d-inline"
+                                            <form action="{{ url('angkatan/' . $item->id) }}" class="form d-inline"
                                                 method="post">
                                                 @csrf
                                                 @method('delete')
