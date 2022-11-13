@@ -1,6 +1,6 @@
 <p align="center"><a href="https://github.com/rosyiid1440" target="_blank"><img src="https://github.com/99sercell/siosis/blob/master/public/img/Screenshot_3.png" width="400"></a></p>
 
-#E-Voting
+# E-Voting
 Aplikasi E-Voting Laravel
 
 ## Cara Install
