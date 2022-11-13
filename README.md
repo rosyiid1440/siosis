@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/rosyiid1440" target="_blank"><img src="hhttps://github.com/99sercell/siosis/blob/master/public/img/Screenshot_3.png" width="400"></a></p>
+<p align="center"><a href="https://github.com/rosyiid1440" target="_blank"><img src="https://github.com/99sercell/siosis/blob/master/public/img/Screenshot_3.png" width="400"></a></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
