@@ -24,7 +24,7 @@ class UserAuthController extends Controller
 
         if($data){
             Auth::login($data);
-            return view('home');
+            return redirect('home');
         }else{
             Alert::error('Error', 'Invalid Token !');
             return redirect('login');

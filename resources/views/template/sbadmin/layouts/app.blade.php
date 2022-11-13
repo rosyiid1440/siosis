@@ -31,7 +31,7 @@
                 {{-- <div class="sidebar-brand-icon">
                     <img src="#" alt="" width="50">
                 </div> --}}
-                APP
+                SIOSIS
                 {{-- <div class="sidebar-brand-text mx-3">APP</div> --}}
             </a>
 

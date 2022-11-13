@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Periode;
 use App\Models\Voting;
 use App\Models\Kandidat;
+use App\Events\Edata;
 use Auth;
 use Alert;
 
@@ -25,6 +26,7 @@ class VotingController extends Controller
             'kandidat_id' => 'required'
         ]);
 
+        $periode = Kandidat::find($request->kandidat_id)->first();
         $cek = Voting::where('user_id',Auth::user()->id)->first();
 
         if($cek){
@@ -37,6 +39,7 @@ class VotingController extends Controller
         $voting->user_id = Auth::user()->id;
         $voting->save();
 
+        broadcast(new Edata($periode->periode_id));
         Alert::success('Success', 'Thanks, Success Voting !');
         return redirect('/home');
     }
