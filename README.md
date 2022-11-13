@@ -66,6 +66,7 @@ php artisan key:generate
 
 ```bash
 php artisan serve
+php artisan websockets:serve
 ```
 
 ## Informasi Login Pengguna
